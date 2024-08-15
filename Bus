@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Bus {
+	private int busNo;
+	private boolean ac;
+	private int capacity;
+	Bus(int no,boolean acc,int cap){
+		this.busNo=no;
+		this.ac=acc;
+		this.capacity=cap;
+	}
+	public int getcapacity(){
+		return capacity;
+	}
+	public void setcapacity(int cap) {
+		capacity=cap;
+	}
+	public boolean isAc(){
+		return acc;
+	}
+	public void setAc(boolean val) {
+		acc=val;
+	}
+	public int getbusNo(){
+		return busNo;
+	}
+	
+	public void displaybusInfo(){
+		System.out.println("BUSNO:"+busNo+"AC:"+ac+"CAPACITY:"+capacity);
+	}
+
+}

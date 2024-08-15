@@ -1,0 +1,43 @@
+import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
+public class Booking {
+	String passengerName;
+	int busNo;
+	Date date;
+	
+	Booking(){
+		Scanner scanner=new Scanner(System.in);
+		System.out.println("enter name");
+		passengerName=scanner.next();
+		
+		System.out.println("enter busno");
+		busNo=scanner.nextInt();
+		
+		System.out.println("dd-MM-yyyy");
+		String dateInput=scanner.next();
+		SimpleDateFormat dateFormat=new SimpleDateFormat("dd-MM-yyyy");
+		try {
+			date=dateFormat.parse(dateInput);
+		}catch(ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public boolean isAvailable(ArrayList<Booking> bookings,ArrayList<Bus> buses) {
+		int capacity=0;
+		for(Bus bus:buses) {
+			if(bus.getbusNo()==busNo)
+				capacity=bus.getcapacity();
+		}
+		int booked=0;
+		for(Booking b:bookings) {
+			if(b.busNo==busNo && b.date.equals(date)) {
+				booked++;
+			}		
+		}
+		return booked<capacity?true:false;
+	}
+}
