@@ -1,6 +1,7 @@
 import java.util.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
+import java.sql.SQLException;
 
 public class Booking {
 	String passengerName;
@@ -9,7 +10,7 @@ public class Booking {
 	
 	Booking(){
 		Scanner scanner=new Scanner(System.in);
-		System.out.println("enter name");
+		System.out.println("enter Name");
 		passengerName=scanner.next();
 		
 		System.out.println("enter busno");
@@ -23,21 +24,14 @@ public class Booking {
 		}catch(ParseException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-	public boolean isAvailable(ArrayList<Booking> bookings,ArrayList<Bus> buses) {
-		int capacity=0;
-		for(Bus bus:buses) {
-			if(bus.getbusNo()==busNo)
-				capacity=bus.getcapacity();
-		}
-		int booked=0;
-		for(Booking b:bookings) {
-			if(b.busNo==busNo && b.date.equals(date)) {
-				booked++;
-			}		
-		}
-		return booked<capacity?true:false;
+	public boolean isAvailable() throws SQLException{
+		BusDAO busdao=new BusDAO();
+		BookingDAO bookingdao=new BookingDAO();
+		
+		int capacity=busdao.getCapacity(busNo);
+		int booked=bookingdao.getBookedCount(busNo,date);
+	
+		return booked<capacity;
 	}
 }
